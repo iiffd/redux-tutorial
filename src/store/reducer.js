@@ -1,6 +1,7 @@
 
 const initialState = {
-  counter: 0
+  counter: 0,
+  results: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -24,6 +25,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         counter: state.counter - action.value
+      }
+    case 'STORE_RESULT':
+      return {
+        ...state,
+        results: [...state.results, { id: new Date(), value: state.counter }]
+      }
+    case 'DELETE_RESULT':
+      const updatedArray = state.results.filter((result) => result.id !== action.deleteId);
+      return {
+        ...state,
+        results: updatedArray
       }
   } 
   return state;
